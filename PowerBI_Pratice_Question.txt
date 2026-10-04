@@ -1,0 +1,1768 @@
+Average_Sales = AVG(Sales[Sales])
+
+ 
+04 Find the total number of orders.
+
+Total_number = COUNT(Sales[OrderID])
+
+05 Calculate the total quantity of products sold.
+
+Total_Quantity = SUM(sales[Quantity])
+
+06 Find the highest sales amount from the Sales column.
+
+Highest_Sales = MAX(Sales[Sales])
+
+07 Find the lowest sales amount from the Sales[Sales] column.
+
+Lowest_sales = MIN(Sales[Sales])
+
+08 Calculate the total sales only for the Electronics category.
+
+Total_Sales = Calculate(SUM(Sales[Sales]),
+		Sales[Category] = "Electronics"
+)
+
+09 Calculate total sales only for the Furniture category.
+
+Total_Sales = Calculate(SUM(Sales[Sales]),
+			Sales[Category] = "Furniture"
+)
+
+
+10 Calate total sales for the Electronics category where Quantity > 2.
+
+
+Total_Sales = CALCULATE(SUM(Sales[Sales]),
+		Sales[Category] = "Electronics",
+		Sales[Quantity] > 2
+)
+
+
+
+11 Calculate the average sales for the Furniture category.
+
+
+
+Average_Sales = CALCULATE(AVG(Sales[Sales]),
+			Sales[Category] = "Furniture"
+)
+
+
+
+
+12- Calculate total sales for Electronics where Quantity is greater than 3.
+
+
+Total_Sales = CALCULATE(SUM(Sales[Sales]),
+		Sales[Category] = "Electronics",
+		Sales[Quantity] > 3
+)
+
+
+
+
+13- Create a calculated column called Sales_Status:
+
+If Sales >= 20,000 → "High"
+Otherwise → "Low"
+
+👉 Write the DAX formula yourself.
+
+
+
+Sales_Category =
+IF(
+    AND(
+        Sales[Sales] >= 20000,
+        Sales[Quantity] >= 3
+    ),
+    "Excellent",
+    "Normal"
+)
+
+14- The question was OR, not AND:
+
+Sales >= 20,000 OR
+Quantity >= 4
+→ "High Priority"
+Otherwise → "Normal"
+
+
+Sales_Category =
+IF(
+    AND(
+	Sales[Sales] >= 20000
+	Sales[Quanity] >= 4,
+    ),
+	"High Priority"
+	"Normal"
+)
+
+
+15- Create a calculated column called Sales_Priority:
+
+If Sales >= 20,000 OR Quantity >= 4 → "High Priority"
+Otherwise → "Normal"
+ 
+
+
+Sales_Priority =
+	IF (
+	     OR(
+		 Sales[Sales] >= 20,000,
+		 Sales[Quantity] >= 4
+),
+		"High Priority",
+		"Normal"
+)
+
+
+
+16- 🟡 Question 16 — IF + AND
+
+Create a calculated column called Performance:
+
+If Sales >= 20,000 AND Quantity >= 4 → "Excellent"
+Otherwise → "Average"
+
+Performance =
+IF(
+   AND(
+	Sales[Sales] >= 20000,
+	Sales[Quantity] >= 4
+),
+	"Excellent",
+	"Average"
+)
+
+
+🟡 Question 17 — Nested IF
+
+Now let's practice nested IF.
+
+Create a calculated column called Sales_Level:
+
+If Sales >= 50,000 → "Very High"
+Else if Sales >= 20,000 → "High"
+Else if Sales >= 10,000 → "Medium"
+Otherwise → "Low"
+
+Hint: Use IF() inside another IF().
+
+Sales_Level =
+IF(
+	Sales[Sales] >= 50,000,
+	"Very High",
+IF(
+	Sales[Sales] >= 20,000,
+	"High",
+IF(
+	Sales[Sales] > 10000,
+	"Medium",
+	"Low"
+	     )
+	)
+)
+
+
+🔥 Question 18 — Nested IF + Quantity
+
+Create a calculated column called Quantity_Level:
+
+Quantity >= 5 → "Large"
+Quantity >= 3 → "Medium"
+Quantity >= 1 → "Small"
+Otherwise → "None"
+
+Quantity_Level =
+IF(
+   Salles[Quantity] >= 5,
+	"Large",
+IF(
+   Sales[Quantity] >= 3,
+   "Medium",
+IF(
+   Sales[Quantity] >= 1,
+   "Small",
+   "None"
+		)
+	)
+)
+
+🟠 Question 19 — Nested IF + AND
+Create a calculated column called Customer_Type:
+
+If Sales >= 30,000 AND Quantity >= 5 → "Premium"
+Else if Sales >= 15,000 AND Quantity >= 3 → "Regular"
+Otherwise → "Basic"
+
+
+Customer_Type =
+IF(
+   AND(
+      Sales[Sales] >= 30,000,
+      Sales[Quantity] >= 5,
+),
+"Premium",
+IF(
+   AND(
+   Sales[Sales] >= 15,000,
+   Sales[Quantity] >= 3
+),
+   "Regular"
+    "Basic"
+		)
+	)
+)
+
+
+🟠 Question 20 — IF + AND + OR
+
+Create Customer_Status:
+
+If Sales >= 30,000 AND Quantity >= 5 → "Premium"
+OR if Sales >= 20,000 AND Quantity >= 3 → "Good"
+Otherwise → "Basic"
+
+Customer_Status =
+IF(
+   OR(
+   AND(
+	Sales[Sales] >= 30,000,
+	Sales[Quantity] >= 5
+),
+"Premium"
+AND(
+	Sales[Sales] > 20,000,
+	Sales[Quantity] >= 3
+),
+	"Good",
+	"Basic"
+		)
+	)
+)
+
+
+SUMX QUESTION
+
+
+
+
+Question:
+
+21- Calculate Total Revenue using SUMX().
+
+
+Total_Revenue =
+SUMX(
+    Sales,
+    Sales[Quantity] * Sales[Price]
+)
+
+
+Total_Cost =
+	SUMX(
+		Sales,
+		Sales[Quanity] * Sales[Cost]
+)
+
+
+
+🟢 SUMX Question 22
+
+Now let's make it slightly harder.
+
+Calculate Total Profit:
+
+Profit = (Price - Cost) × Quantity
+
+Use SUMX().
+
+You have:
+
+Sales[Quantity]
+Sales[Price]
+Sales[Cost]
+
+
+Calculate_Total_Profit =
+SUMX(
+     Sales,
+	(Sales[Price] - Sales[Cost]) * Sales[Quantity]
+)
+
+
+🟢 SUMX Question 23
+
+Calculate Total Discount Amount:
+
+Discount Amount = Quantity × Price × Discount%
+
+Columns:
+
+Sales[Quantity]
+Sales[Price]
+Sales[Discount]
+
+
+
+
+Total_Discount_Amount =
+SUMX(
+     Sales,
+	  Sales[Quantity] * Sales[Price] * Sales[Discount])
+)
+
+
+
+🟠 SUMX Question 24 — Slightly harder
+
+Calculate Total Net Sales after discount.
+
+Formula:
+
+Net Sales = (Quantity × Price) − Discount Amount
+
+You have:
+
+Sales[Quantity]
+Sales[Price]
+Sales[Discount]
+
+
+Total_net_Sales =
+SUMX(
+	Sales,
+	     (Sales[Quantity] * Sales[Price]) - (Sales[quantity] * Sales[Price] * Sales[Discount])
+)
+
+🟢 Question 25 — AVERAGEX
+
+Using:
+
+Sales[Quantity]
+Sales[Price]
+
+Calculate the average revenue per row/order.
+
+Revenue = Quantity × Price
+
+Average_Revenue =
+	Averagex(
+		Sales,
+			Sales[Quantity] * Sales[Price]
+
+)
+
+
+
+🔥 Question 26 — AVERAGEX
+
+Calculate Average Profit per order.
+
+Formula:
+
+Profit = (Price - Cost) × Quantity
+
+Use AVERAGEX().
+
+
+Average_Profit =
+	AverageX(
+		Sales,
+			(Sales[Price] - Sales[Cost]) * Sales[Quantity]
+)
+
+
+🟢 AVERAGEX Question 27
+
+Calculate the average discount amount per order.
+
+Formula:
+
+Discount Amount = Quantity × Price × Discount
+
+
+Average_Discount =
+AVERAGEX(
+	Sales,
+	      (Sales[Quantity] * Sales[Price] * Sales[Discount])
+)
+
+🟠 AVERAGEX Question 28 — More realistic
+
+Calculate the average net sales per order.
+
+Formula:
+
+Net Sales = (Quantity × Price) − (Quantity × Price × Discount)
+
+
+Average_Sales =
+	Average(
+                 (Sales[Quantity] * Sales[Price]) - (Sales[Quantity] * Sales[Price] * Sales[Price])
+)
+
+
+
+🟢 AVERAGEX Question 29
+
+Calculate the average cost per order.
+
+Formula:
+
+Cost per order = Quantity × Cost
+
+Use AVERAGEX().
+
+
+Average_Cost =
+	Average(
+		Sales,
+		Sales[Quantity] * Sales[Cost]
+)
+
+🟠 AVERAGEX Question 30
+
+Calculate Average Profit Margin per order.
+
+Formula:
+
+Profit Margin = (Price - Cost) / Price
+
+
+
+Average_Profit_Margin =
+	AverageX(
+		Sales,
+		      (Sales[Price] - Sales[Cost])/Sales[Price]
+)
+
+
+🟢 COUNTX — Question 31
+
+Using the same Sales table:
+
+Count how many rows have Quantity > 2.
+
+
+Order_Above_2 =
+	CountX(
+		Sales,
+		      IF(Sales[Quantity] > 2,1, Blank())
+)
+
+
+🟢 COUNTX Question 32
+
+Count the number of orders where Sales > 20,000.
+
+Use COUNTX + IF().
+
+Your turn bro 🔥
+
+Count_Number =
+	COUNTX(
+		Sales,
+		IF(Sales[Order] > 20,000,
+		1
+		Blank()
+
+		)
+)
+
+🟢 COUNTX Question 33
+
+Let's make it slightly easier:
+
+Count how many orders have Quantity >= 3.
+
+Use:
+
+COUNTX + IF()
+
+Count_Order =
+	Sales,
+	COUNTX(
+		Sales,
+		    IF(Sales[Quantity] >= 3,1,
+			Blank()
+	)
+)
+
+
+
+🟢 MINX — Question 34
+
+03 Find the lowest revenue from any order.
+
+Revenue:
+Quantity × Price
+Use MINX().
+
+Lowest_Revenue =
+	MINX(
+	     Sales,
+		  Sales[Quantity] * Sales[Price]
+)
+	
+
+35 Now find the highest profit from any order.
+
+Formula:
+
+Profit = (Price − Cost) × Quantity
+
+
+Highest_Profile =
+MAXX(
+ 	Sales,
+	(Sales[Price] - Sales[Cost]) * Sales[Quantity]
+)
+
+🟢 MAXX Question 36
+
+Find the highest Net Sales from any order.
+
+Formula:
+
+Net Sales = (Quantity × Price) − (Quantity × Price × Discount)
+
+
+
+Highest_Net_Sales =
+	MAXX(
+	      Sales,
+	            (Sales[Quantity] * Sales[Price]) - (Sales[Quantity] * Sales[Price] * Sales[Discount])
+)
+
+
+🟢 CALCULATE Question 37
+
+Using the Sales table:
+
+Calculate Total Sales only for Electronics.
+
+Sales_Table =
+	Calculate(
+		SUM(Sales[Sales]),
+		Sales[Category] = "Electronics"
+)
+	
+
+
+🟢 CALCULATE Question 38
+
+Now let's make it slightly harder:
+
+Calculate total sales for Electronics where Quantity > 3.
+
+
+
+
+Total_Sales =
+	Calculate(
+		 SUM(Sales[Sales]),
+		 Sales[Category] = "ELectronics",
+		 Sales[Quantity] > 3
+
+)
+
+🟡 CALCULATE Question 39 — Multiple Conditions
+
+Calculate the average sales for Electronics where Quantity >= 3.
+
+Use:
+
+CALCULATE
+AVERAGE
+Category = "Electronics"
+Quantity >= 3
+
+Average_Sales =
+	Calculate(
+		   Average([Sales]),
+		   Sales[Category] = "Electronics",
+		   Sales[Quantity] >= 3
+)
+
+
+🟡 CALCULATE Question 40
+
+Now let's practice a different type of filter.
+
+Calculate total sales excluding the Furniture category.
+
+
+Total_Sales =
+	CALCULATE(
+		  SUM(Sales[Sales]),
+		  Sales[Category] <> "Furniture"
+)
+
+
+
+🟡 CALCULATE Question 41
+
+Now let's practice <> again:
+
+Calculate the average sales for all categories EXCEPT Electronics.
+
+
+
+Average_Sales =
+	CALCULATE(
+		   AVERAGE(Sales[Sales]),
+		   Sales[Categoey] <> "Electronics"
+)
+
+
+
+🟠 CALCULATE Question 42 — FILTER()
+
+Now we're going to learn an important interview concept:
+
+Calculate total sales for orders where Quantity × Price > 20,000.
+
+
+Total_Sales =
+Calculate(
+	   SUM(Sales[Sales]),
+	   FILTER(
+		  Sales,
+	   (Sales[Quantity] * Sales[Price]) > 20,000
+	)
+)
+	
+
+🟠 CALCULATE + FILTER — Question 43
+
+Calculate total sales for orders where:
+
+Quantity × Price > 30,000
+
+AND
+
+Quantity >= 3
+Use CALCULATE + SUM + FILTER.
+
+
+Total_Sales =
+      Calculate(
+		SUM(Sales[Sales]),
+		FILTER(
+			Sales,
+	        (Sales[Quantity] * Sales[Price]) > 30,000
+		&& Sales[quantity] >= 3
+	)
+)
+
+
+🟠 Question 44 — CALCULATE + FILTER
+
+Now one step harder:
+
+Calculate total profit for orders where:
+
+(Price - Cost) × Quantity > 10,000
+
+
+Total_Profit =
+Calculate(
+SUMX(
+     Sales,
+	  (Sales[Price] - Sales[Cost]) * Sales[Quantity]
+),
+    FILTER(
+	    Sales,
+		(Sales[Price] - Sales[Cost]) * Sales[Quantity] > 10,000
+	)
+)
+	
+🟠 Question 45 — Final CALCULATE + FILTER Practice
+
+Calculate Total Net Sales where:
+
+Quantity >= 3
+Price >= 10,000
+
+Formula:
+
+Net Sales = (Quantity × Price) − (Quantity × Price × Discount)
+
+
+
+Total_Net_Sales =
+Calculate(
+	   SUMX(
+		Sales(Sales[Quantity] * Sales[Price]) - (Sales[Quantity] * Sales[Price] * Sales[Discount])
+),
+	FILTER(
+		Sales,
+		Sales[Quantity] >= 3
+		&& Sales[Price] >= 10000
+	)
+)
+
+🟣 Next Topic: ALL()
+
+Before moving to more advanced CALCULATE, let's learn one of the most important interview functions: ALL().
+
+Question 46 — ALL
+
+Calculate Total Sales ignoring all filters applied to the Sales table.
+
+
+
+Total_Sales =
+	Calculate(
+		  Sales,
+			SUM(Sales[Sales])
+		ALL(Sales)
+)
+
+
+
+
+🔥 Question 47 — ALL(Column)
+
+Now let's test that distinction.
+
+Calculate Total Sales while ignoring only the filter on Category, but keeping other filters on the Sales table.
+
+
+
+
+Total_Sales =
+	Calculate(
+		  Sum(Sales[Sales]),
+		  All(Sales[Regiion])
+)
+
+
+
+🟣 ALL — Question 48
+Now let's make it more interesting.
+
+Create a measure for:
+
+Percentage of Total Sales
+
+
+
+Sales_Percentage =
+Divide(
+	SUM(Sales[Sales])
+	Calculate(
+		 SUM(Sales[Sales]),
+		 ALL(Sales)
+	)
+)
+
+
+🟣 Question 49 — Percentage of Category Sales
+
+Now let's make it slightly harder.
+
+Create:
+
+Category Sales % = Current Category Sales ÷ Total Sales
+
+
+
+Category_Sales =
+	Divide(
+	       SUM(Sales[Sales]),
+		Calculate(
+			   SUM(Sales[Sales]),
+			   ALL(Sales[Category])
+		)
+)
+	
+
+🟣 Question 50 — ALLSELECTED
+
+Create a measure for Selected Category Sales %:
+
+Current Sales ÷ Sales for all categories currently selected by the user
+
+Use:
+
+DIVIDE()
+CALCULATE()
+SUM()
+ALLSELECTED(Sales[Category])
+
+
+
+Sales_Percentage =
+	Divide(
+		SUM(Sales[Sales]),
+	Calculate(
+
+		ALLSelected(Sales[Category])
+)
+
+
+🟣 ALLSELECTED — Question 51
+
+Calculate Total Sales for all categories selected by the user.
+
+Use:
+
+CALCULATE
+SUM
+ALLSELECTED(Sales[Category])
+
+
+
+
+Total_Sales =
+	Calculate(
+		SUM(Sales[Sales])
+		Allselected(Sales[Category])
+)
+
+
+🟢 SWITCH — Question 52: Basic
+
+Suppose Sales[Category] contains:
+
+"Furniture" → "F"
+"Technology" → "T"
+"Office Supplies" → "O"
+Anything else → "Other"
+
+
+Sales_Category =
+Switch(
+        Sales(Sales[Category]),
+	"Furniture", "F",
+	"Technology", "T",
+	 "Office Supplies", "o",
+	 "Other"
+)
+
+
+🟢 SWITCH Question 53
+
+Now let's practice a numeric value instead of text.
+
+Create a calculated column called Quantity_Level:
+
+Quantity = 1 → "Small"
+Quantity = 2 → "Medium"
+Quantity >= 3 → "Large"
+Anything else → "Unknown"
+
+
+
+Quantity_level =
+	Switch(
+		Sales(Sales[Quantity_Level])
+		"Quantity = 1", "Small",
+		"Quantity = 2", "Medium",
+		"Quantity >= 3", "Large",
+		"Anything else", "Unknow"
+)
+
+
+
+🟢 SWITCH(TRUE()) — Question 54
+
+Create Sales_Level:
+
+Sales >= 50,000 → "Very High"
+Sales >= 20,000 → "High"
+Sales >= 10,000 → "Medium"
+Otherwise → "Low"
+
+
+
+Sales_Level = 
+	Switch(
+		True()
+		 Sales[Sales] >= 50000, "Very High",
+		 Sales[Sales] >= 20,000, "Very High",
+		 Sales[Sales] >= 10,000, Medium",
+		 "Low"
+)
+
+
+
+🔥 Your turn — Question 55
+
+Now let's combine SWITCH(TRUE()) + AND().
+
+Create Customer_Level:
+
+Sales >= 30,000 AND Quantity >= 5 → "Premium"
+Sales >= 15,000 AND Quantity >= 3 → "Regular"
+Otherwise → "Basic"
+
+
+
+Customer_Level = 
+	Switch(
+		True()
+		Sales[Sales] >= 30,000 && Sales[Quantity] >= 5, "Premium",
+		Sales[Sales] >= 15,000 && Sales(Quantity) >= 3, "Regular",
+		"Basic"
+)
+
+
+🔥 SWITCH Question 56
+
+Now let's practice OR.
+
+Create Sales_Priority:
+
+Sales >= 30,000 OR Quantity >= 5 → "High"
+Sales >= 15,000 OR Quantity >= 3 → "Medium"
+Otherwise → "Low"
+
+
+
+Sales_Priority = 
+	Switch(
+	     True(
+		  Sales[Sales] >= 30,000 || Sales[Quantity], "High",
+		  Sales[Sales] >= 15,000 || Sales[Quantity], "Medium",
+		"Low"
+)	
+
+
+
+🔥 SWITCH Question 57 — Slightly harder
+
+Create Order_Status:
+
+Sales >= 50,000 AND Quantity >= 10 → "Excellent"
+Sales >= 30,000 AND Quantity >= 5 → "Good"
+Sales >= 10,000 OR Quantity >= 3 → "Average"
+Otherwise → "Low"
+
+
+
+
+Order_Status = 
+	Switch(
+		True(),
+		      Sales[Sales] >= 50,000 && Sales[Quantity] >= 10,"Excellent",
+		      Sales[Sales] >= 30,000 && Sales[Quantity] >= 5, "Good",
+		      Sales[Sales] >= 10,000 || Sales[Quantity] >= 3, "Average",
+		"Low"
+)	
+
+
+
+🟣 SWITCH Question 58 — Mixed Conditions
+
+Create Performance_Level:
+
+Sales >= 50,000 → "Excellent"
+Sales >= 30,000 AND Quantity >= 5 → "Good"
+Quantity >= 10 OR Sales >= 20,000 → "Average"
+Otherwise → "Low"
+
+
+Performance_Level = 
+	SWITCH(
+		True()
+,	Sales[Sales] >= 50,000, "Excellent",
+	Sales[Sales] >= 30,000 && Sales[Quantity] >= 5, "Good",
+	Sales[Quantity] >= 10 || Sales[Sales] >= 20,000, "Average",
+	"Low"
+)
+
+
+🟣 SWITCH Question 59 — Nested Conditions
+Now let's make it harder.
+Create Customer_Segment:
+- Sales >= 50,000 AND Quantity >= 10 → "Platinum"
+- Sales >= 30,000 AND (Quantity >= 5 OR Sales >= 40,000) → "Gold"
+- Sales >= 15,000 OR Quantity >= 3 → "Silver"
+- Otherwise → "Bronze"
+
+
+Customer_Segment = 
+	Switch(
+		True(),
+		Sales[Sales] >= 50,000 && Sales[Quantity] >= 10, "PLatinum",
+	Sales[Sales] >= 30,000 &&
+( 
+Sales[Quantity] >= 5 || Sales[Sales] >= 40,000
+),  "Gold",
+	Sales[Sales] >= 15,000 || Sales[Quantity] >= 3, "Silver",
+	"Bronze"
+) 
+
+
+🟣 SWITCH Question 60 — Dynamic Measure Selection
+Now let's learn another very important real-world use of SWITCH().
+
+
+
+Create a measure called Selected_Metric:
+- "Sales" → SUM(Sales[Sales])
+- "Profit" → total profit using (Price - Cost) × Quantity
+- "Quantity" → SUM(Sales[Quantity])
+- Otherwise → BLANK()
+
+
+
+
+
+Selected_Metric = 
+	Switch(
+	  True(),
+		SUM(Sales[Sales]),
+		(Sales[Price] - Sales[Cost]) * Sales[Quantity],
+		SUM(Sales[Quantity]),
+		Blank()
+
+)
+
+------------------------------------- SELECTDVALUE()----------------------------------
+
+🟢 question 61 Now your practice
+Don't write the Profit part yet.
+Create:
+Selected_Metric
+Rules:
+- "Sales" → SUM(Sales[Sales])
+- "Quantity" → SUM(Sales[Quantity])
+- Otherwise → BLANK()
+
+
+Select_Metric =
+	Switch(
+	SELECTDVALUE(Metric[Metric])
+	SUM(Sales[Sales],
+	SUM(Sales[Quantity],
+	Blank()
+)
+	
+
+🟢 QUESTION 62 SWITCH — Practice Question 1: Dynamic Metric Selection
+Suppose you already have a table named Metric with a column Metric[Metric] containing these options:
+- Sales
+- Quantity
+Your task: Create a measure named Selected_Metric with these rules:
+Selected option	Calculation
+"Sales"	SUM(Sales[Sales])
+"Quantity"	SUM(Sales[Quantity])
+Anything else	BLANK()
+
+
+
+Selected_Metric = 
+Switch(
+	SELECTDVALUE(Metric[Metric]),
+	"Sales",SUM(Sales[Sales]),
+	"Quantity",SUM(Sales[Quantity]),
+	 Blank(),
+)
+
+🟢 Practice Question 63
+Now try this simpler version yourself:
+Create Selected_Metric with only these rules:
+- "Sales" → SUM(Sales[Sales])
+- Otherwise → BLANK()
+Use SELECTEDVALUE() and SWITCH(). Try writing just these two cases, br
+
+
+
+Selected_Metric = 
+	Switch(
+		SELECTEDVALUE(Metric[Metric]),
+		"Sales", SUM(Sales[Sales]),
+		Blank()
+)
+
+--------------------- ALLEXCEPT()-----------------------------------------------------
+Question 64------------
+Create a measure named Category_Total_Sales that calculates total sales while keeping only the Category filter.
+Use these three functions:
+- CALCULATE()
+- SUM()
+- ALLEXCEPT()
+
+
+
+Category_Total_Sales = 
+	Calculate(
+		SUM(Sales[Sales]),
+		ALLEXCEPT(Sales, SAles[Category])
+)
+
+
+
+--  Question 65 ---
+
+Create a measure named Region_Total_Sales that calculates total sales while keeping only the Region filter.
+Assume your table has a column Sales[Region].
+
+
+Region_Total_Sales = 
+	Calculate(
+		SUM(Sales[Sales]),
+		ALLEXCEPT(SAles, Sales[Region])
+)
+
+
+🟢 ALLEXCEPT — Question 66
+Now try keeping both Category and Region filters.
+
+
+Category_Region_Sales = 
+	Calculate(
+		 SUM(Sales[Sales]),
+		 ALLEXCEPT(
+			Sales,
+			Sales[Region],
+			Sales[Categry]
+)
+
+
+
+🟢 Question 67 — One more practice
+Create a measure called Category_Total_Quantity that:
+- Calculates the total quantity using SUM().
+- Keeps only the Category filter using ALLEXCEPT().
+
+
+Category_Total_Quantity = 
+	Calculate(
+		SUM(Sales[Sales]),
+		ALLEXCEPT(Sales, Sales[Category])
+)
+
+
+
+🟢 Question 68 — Last practice for ALLEXCEPT
+Create a measure named Category_Average_Sales that calculates the average sales while keeping only the Category filter.
+
+
+
+Category_Average_Sales = 
+	Calculate(
+		Average(Sales[Sales]),
+		ALLEXCEPT(Sales, Sales[Category])
+)
+
+
+
+----------------------------- REMOVEFILTER()-----------------------
+Question 69
+Create a measure called Total_Sales_All_Regions that calculates total sales while ignoring the Region filter only.
+
+Hint: Use CALCULATE(), SUM() and REMOVEFILTERS().
+
+Total_Sales_ALL = 
+	CALCULATE(
+		SUM(Sales[Sales]),
+		REMOVEFILTERS(Sales[Region])
+)
+
+
+
+
+
+
+🟢 Question 70 — Your turn
+Create a measure called Total_Sales_All_Categories that:
+- Calculates total sales using SUM().
+- Removes only the Category filter using REMOVEFILTERS().
+
+
+
+
+Total_Sales_ALL_Categories = 
+	Calculate(
+	 SUM(Sales[Sales]),
+	 REMOVEFILTERS(Sales[Category])
+)
+
+
+
+
+🟢 Question 71 — A little harder
+Create a measure named Total_Sales_Without_Filters that calculates total sales while removing all filters from the entire Sales table.
+Hint: Use CALCULATE(), SUM() and REMOVEFILTERS().
+
+
+
+Total_Sales_Without_Filter = 
+	Calculate(
+		 SUM(Sales[Sales]),
+		 REMOVEFILTERS(Sales)
+)
+
+
+🟢 Question 72 — Final practice
+Create Total_Sales_All_Filters_Removed to calculate total sales while removing all filters from the current filter context.
+Hint: You can use REMOVEFILTERS() without any arguments inside CALCULATE().
+
+
+Total_Sales_All_Filter_Removed = 
+	CALCULATE(
+		 SUM(Sales[Sales]),
+		 REMOVEFILTERS()
+)
+
+
+
+🟢 Next question 73 — REMOVEFILTERS() with multiple columns
+Create a measure named Sales_Ignore_Region_Category that removes filters from both Region and Category, while keeping other applicable filters.
+
+
+
+Sales_Ignore_Region_Category = 
+	  Calculate(
+		    SUM(Sales[Sales]),
+		    REMOVEFILTER(Sales[Region], Sales[Category])
+)
+		
+		
+----------------------------------------- KEEP FILTER -----------------------------------------
+🟢 Question 74-  Your first practice question
+Create a measure called Electronics_Sales that calculates total sales for Electronics while preserving the existing Category filter.
+
+
+Electronics_Sales = 
+	Calculate(
+		  SUM(Sales[Sales]),
+		  KEEPFILTERS(Sales[Category] = "Electronics")
+)
+
+
+
+
+
+🟢 Question 75 — Your turn
+Create a measure called High_Value_Sales:
+- Calculate total sales.
+- Keep the existing filters.
+- Apply the additional condition Sales[Sales] >= 20000.
+
+High_Value_Sales = 
+	CALCULATE(
+		SUM(Sales[Sales]),
+		KEEPFILTERS(Sales[sales] >= 20000
+)
+
+
+🟢 Question 76 — Your turn
+Create a measure called High_Quantity_Sales:
+- Calculate total sales.
+- Apply the condition Sales[Quantity] >= 5.
+- Preserve any existing Quantity filter using KEEPFILTERS().
+
+
+High_Quantity_Sales = 
+	Calculate(
+		SUM(Sales[Sales]),
+		KEEPFILTERS(Sales[Quantity] >= 5)
+)
+
+
+
+🟢 Question 77 — Final practice for KEEPFILTERS
+Create a measure called Furniture_High_Quantity_Sales with these rules:
+- Calculate total sales.
+- Keep the existing Category filter and apply "Furniture".
+- Keep the existing Quantity filter and apply Quantity >= 5.
+
+
+Furniture_High_Quantity_Sales = 
+		CALCULATE(
+			SUM(Sales[Sales]),
+			KEEPFILTERS(Sales[Category] = "Furniture"),
+			KEEPFILTERS(Sales[Quantity] >= 5)
+)
+
+
+
+---------------------------------- Row Context vs Filter Context practice----------------------------
+
+
+
+
+🟢 Practice Question 78 — Total Profit
+Suppose your Sales table has these columns:
+- Sales[Price] — selling price per unit
+- Sales[Cost] — cost per unit
+- Sales[Quantity] — number of units sold
+Your task: Create a measure named Total_Profit
+
+
+
+Total_Profit = 
+	Calculate(
+		  Sales,
+		  (Sales[Price] - Sales[Cost]) * Sales[Quantity]
+)
+
+
+
+
+🔥 Practice Question 79 — Total Discount Amount
+Suppose your Sales table has these columns:
+- Sales[Price] — price per unit
+- Sales[Quantity] — units sold
+- Sales[Discount] — discount rate, stored as a decimal (for example, 0.10 means 10%)
+
+
+Total_Discount_Amount = 
+SUMX(
+     Sales,
+     Sales[Price] * Sales[Quantity] * Sales[Discount]
+)
+
+
+🟢 Practice Question 80 — Total Net Sales
+Now let's increase the difficulty a little bit.
+Business requirement: Calculate total net sales after deducting the discount amount.
+Assume Sales[Discount] stores the discount as a decimal rate (for example, 0.10 means 10%).
+Formula:
+Net Sales = (Price × Quantity) − (Price × Quantity × Discount)
+Create a measure named Total_Net_Sales.
+
+
+
+
+
+Total_Net_Sales= 
+SUMX(
+Sales,
+      (Sales[Price] * Sales[Quantity]) - (Sales[Price] * Sales[Quantity] * Sales[Discount])
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
