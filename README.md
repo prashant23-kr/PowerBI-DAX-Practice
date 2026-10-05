@@ -1,7 +1,7 @@
 # Power BI DAX Practice Questions
 
 ## About This Repository
-This repository contains my DAX practice questions and solutions as I learn Power BI and improve my data analytics skills.
+This repository contains 100 Question on my DAX practice questions and solutions as I learn Power BI and improve my data analytics skills.
 
 ## Topics Covered
 - Basic DAX functions
