@@ -177,7 +177,7 @@ Otherwise → "None"
 
 Quantity_Level =
 IF(
-   Salles[Quantity] >= 5,
+   Sales[Quantity] >= 5,
 	"Large",
 IF(
    Sales[Quantity] >= 3,
@@ -1339,6 +1339,284 @@ SUMX(
 Sales,
       (Sales[Price] * Sales[Quantity]) - (Sales[Price] * Sales[Quantity] * Sales[Discount])
 )
+
+
+🟢 Practice Question 81 — Average Revenue
+Let's continue practicing, bro! 💪
+Business requirement: Calculate the average revenue per row.
+Formula:
+Revenue = Price × Quantity
+Create a measure named Average_Revenue using AVERAGEX().
+
+
+
+Average_Revenue = 
+	AverageX(
+		Sales,
+			Sales[Prrice] * Sales[Quantity]
+)
+		      
+🟢 Practice Question 82 — Average Profit
+Now let's increase the difficulty.
+Create:
+Average_Profit
+Business rule:
+Profit = (Price - Cost) × Quantity
+
+Use AVERAGEX() to calculate the average profit per row.
+
+
+
+Average_Profit = 
+	AVERAGEX(
+		Sales,
+		     (Sales[Price] - Sales[Cost]) * Sales[Quantity]
+)
+
+🔥 Practice Question 83 — Conditional Average
+Now let's make it slightly harder.
+Task: Calculate the average revenue only for rows where Quantity >= 3.
+
+
+Average_Revenue = 
+	AVERAGEX(
+		Filter(
+		 Sales,
+			Sales[Quantity] >= 3
+	),
+		Sales[Price] * Sales[Quantity]
+)
+
+
+🔥 Your next practice question 84--------
+Calculate the average profit only for rows where Sales[Quantity] >= 5.
+Business rule:
+Profit = (Price - Cost) × Quantity
+
+
+Average_Profit = 
+	AVERAGEX(
+	   FILTER(
+		Sales,
+			Sales[Quantity] >= 5
+),
+
+      (Sales[Price] - Sales[Cost]) * Sales[Quantity]
+)				
+
+
+
+🔥 Practice Question 85 — Conditional Net Sales
+Now let's make it harder.
+Create Average_Net_Sales:
+Condition: Sales[Quantity] >= 3
+Net Sales:
+(Price × Quantity) - (Price × Quantity × Discount)
+
+
+Average_net_Sales = 
+	AVERAGEX(	
+		FILTER(
+		Sales,
+		      Sales[Quantity] >= 3
+),
+	(Sales[Price] * Sales[Quantity]) - (Sales[Price] * Sales[Quantity] * Sales[Discount])
+)
+		      
+
+
+🟢 Practice Question 86 — Conditional Average Discount
+Now one more practice question, slightly harder:
+Task: Calculate the average discount amount only for orders where Sales[Quantity] >= 5.
+Formula:
+Discount Amount = Price × Quantity × Discount
+
+
+
+Average_Discount = 
+AVERAGEX(
+	FILTER(
+		Sales,
+			Sales[Quantity] >= 5
+),
+Sales[Price] * Sales[Quantity] * Sales[Discount]
+
+
+
+
+🔥 Practice Question 87 — SUMX + FILTER
+Now let's switch from average to total.
+Task
+Calculate Total Profit only for orders where:
+Quantity >= 5
+
+
+Total_Task = 
+SUMX(
+ FILTER(
+	Sales,
+	     Sales[Quantity] >= 5
+),
+   (Sales[Price] - Sales[Cost]) * Sales[Quantity]
+)
+
+🔥 Next Practice — Question 88
+Calculate High-Quantity Net Sales.
+Condition:
+Quantity >= 5
+Net Sales:
+(Price × Quantity) - (Price × Quantity × Discount)
+
+High_Quantity = 
+SUMX( 
+     FILTER(
+	     Sales,
+		  Sales[Quantity] >= 5
+),
+(Sales[Price] * Sales[Quantity]) - (Sales[Price] * Sales[Quantity] * Sales[Discount]) 
+)
+
+
+🔥 Practice Question 89 — Two Conditions
+Now let's make it a little harder.
+Task: Premium_Profit
+Calculate total profit only for rows where:
+- Quantity >= 5
+- AND
+- Price >= 20,000
+
+
+
+Premium_Profit = 
+SUMX(
+   FILTER(
+	 Sales,
+		Sales[Quantity] >= 5 && Sales[Price] >= 20,000
+),
+(Sales[Price] - Sales[Cost]) * Sales[Quantity]
+)
+
+
+🟢 Practice Question 90 — SUMX + FILTER + OR
+Calculate Total Revenue for rows where:
+- Quantity >= 10 OR
+- Price >= 30,000
+
+
+Total_Revenue = 
+SUMX(
+    FILTER(
+	   Sales,
+		Sales[Quantity] >= 10 || Sales[Price] >= 30,000
+),
+	Sales[Price] * Sales[Quantity]
+)
+
+
+
+
+🔥 Practice Question 91 -Three Conditions
+Now let's test whether you've really mastered FILTER + SUMX.
+Create Premium_Net_Sales.
+Conditions
+A row qualifies only when:
+1. Quantity >= 5
+2. Price >= 20000
+3. Discount <= 0.10
+All three conditions must be true.
+Net Sales
+(Price × Quantity) - (Price × Quantity × Discount)
+
+
+
+
+Premium_Net_Sales = 
+SUMX(	
+    FILTER(
+	  Sales,
+		Sales[Quantity] >= 5 && Sales[Price] >= 20000 && Sales[Discount] <=  0.10
+),
+(Sales[Price] * Sales[Quantity]) - (Sales[Price] * Sales[Quantity] * Sales[Discount])
+)
+
+----------------------------- Context Transition -------------------
+
+
+🔥 Context Transition — Question 92. 1/10
+Create a measure:
+Electronics_Sales
+Requirement:
+Calculate total sales only for the Electronics category.
+
+Use CALCULATE() and SUM().
+
+
+Electronics_Sales = 
+Calculate(
+	SUM(Sales[Sales]),
+	     Sales[Category] = "Electronics"
+)
+
+
+
+
+🔥 Context Transition — Question 93, 2/10
+Create:
+High_Value_Sales
+Requirement:
+Calculate total sales where Sales[Sales] >= 20000.
+
+Use CALCULATE() + SUM().
+
+
+High_Value_Sales = 
+Calculate(
+	SUM(SALES[Sales]),
+		Sales[Sales] >= 20000
+)
+
+
+🔥 Context Transition — Question 94, 3/10
+Create:
+Furniture_Quantity_Sales
+Requirement:
+Calculate total sales where Category = "Furniture" AND Quantity >= 3.
+
+
+Furniture_Quantity_Sales = 
+     SUM(
+	Sales(Sales[Sales]),
+	Sales[Category] = "Furniture" && Sales[Quantity] >= 3
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
