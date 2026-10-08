@@ -1592,6 +1592,232 @@ Furniture_Quantity_Sales =
 
 
 
+🔥 Context Transition — Question 95/10
+Create:
+High_Profit_Sales
+Requirement:
+Calculate total sales for rows where Profit > 10,000.
+
+Profit:
+(Price - Cost) × Quantity
+
+
+High_Profit_Sales =
+CALCULATE(
+    SUM(Sales[Sales]),
+    FILTER(
+        Sales,
+        (Sales[Price] - Sales[Cost]) * Sales[Quantity] > 10000
+    )
+)
+
+
+
+🔥 Create question 96/10:
+High_Quantity_Revenue
+Requirement:
+Calculate total revenue for rows where Quantity >= 5.
+
+Revenue:
+Price × Quantity
+
+
+
+High_Quantity_Revenue =
+CALCULATE(
+    SUMX(
+        Sales,
+        Sales[Price] * Sales[Quantity]
+    ),
+    FILTER(
+        Sales,
+        Sales[Quantity] >= 5
+    )
+)
+
+🔥 Context Transition — Question 97/10
+Create Electronics_High_Quantity_Revenue.
+Requirements:
+- Category = "Electronics"
+- Quantity >= 5
+- Revenue = Price × Quantity
+
+
+Electronics_High_Quantity_Revenue =
+CALCULATE(
+    SUMX(
+        Sales,
+        Sales[Price] * Sales[Quantity]
+    ),
+    FILTER(
+        Sales,
+        Sales[Category] = "Electronics" &&
+        Sales[Quantity] >= 5
+    )
+)
+
+
+🔥 Context Transition — Question 98/10
+Create Furniture_High_Profit.
+Requirements:
+- Category = "Furniture"
+- Quantity >= 3
+- Profit = (Price - Cost) × Quantity
+
+
+
+Furniture_High_Profit = 
+Calculate(
+	SUMX(
+	     (Sales[Price] - Sales[Cost]) * Sales[Quantity]
+),
+   FILTER(
+	  Sales,
+	     Sales[Category] = "Furniture" && Sales[Quantity] >= 3
+)
+
+
+
+
+Create Electronics_Net_Sales.
+Requirements:
+- Category = "Electronics"
+- Quantity >= 5
+- Discount <= 10%
+- Net Sales = (Price × Quantity) - (Price × Quantity × Discount)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
