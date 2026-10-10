@@ -1693,7 +1693,670 @@ Requirements:
 
 
 
+-------------------------------------------------------------------- REVISION POWER BI --------------------------------------------------------------
 
+
+🔥 REVISION — Topic 1: IF / AND / OR
+Question 1/10
+Create a calculated column called Customer_Type.
+Rules:
+- If Sales[Sales] >= 30000 AND Sales[Quantity] >= 5 → "Premium"
+- If Sales[Sales] >= 15000 OR Sales[Quantity] >= 3 → "Regular"
+- Otherwise → "Basic"
+
+
+
+CUSTOMER_TYPE =
+	IF(
+	   Sales[Sales] >= 30,000 && Sales[Quantity] >=5 , "Premium",
+	IF(
+	
+	   Sales[Sales] >= 15,000 || Sales[Quantity] >= 3 , "Regular",
+	   "Basic"
+)
+)
+	
+
+🔥 Revision — Question 2/10
+Create Sales_Level:
+- Sales >= 50,000 → "Very High"
+- Sales >= 20,000 → "High"
+- Sales >= 10,000 → "Medium"
+- Otherwise → "Low"
+
+
+Sales_Level =
+	IF(
+	   Sales[Sales] >= 50,000, "Very High",
+	IF(
+	   Sales[Sales] >= 20,000, "High",
+	IF(
+	   Sales[Sales] >= 10,000, "Medium",
+	   "LOW"
+		)
+	)
+)
+
+
+⚡ Revision Question 3/10
+Create Quantity_Level:
+- Quantity = 1 → "Small"
+- Quantity = 2 → "Medium"
+- Quantity >= 3 → "Large"
+- Otherwise → "Unknown"
+
+
+Quantity_Level =
+	IF(
+	   Sales[Quantity] = 1,
+	   "Small",
+	IF(
+	    Sales[Quantity] = 2,
+	    "Medium",
+	IF(
+	    Sales[Quantity] >= 3,
+	    "Large",
+	    "Unknow"
+		)
+	)
+)
+
+
+
+
+⚡ Revision Question 4/10 — IF + &&
+Create Performance_Level:
+- Sales >= 50,000 AND Quantity >= 10 → "Excellent"
+- Sales >= 30,000 AND Quantity >= 5 → "Good"
+- Sales >= 10,000 → "Average"
+- Otherwise → "Low"
+
+
+Performance_Level =
+	IF(
+	   Sales[Sales] >= 50,000 && Sales[Quantity] >= 10,
+	   "Excellent",
+	IF(
+	   Sales[Sales] >= 30,000 && Sales[Quantity] >= 5,
+	    "Good",
+	IF(
+	   Sales[Sales] >= 10,000, "Average",
+	   "Low"
+		)
+	)
+)
+
+⚡ Revision Question 5/10
+Create Sales_Priority:
+- Sales >= 30,000 OR Quantity >= 10 → "High"
+- Sales >= 15,000 OR Quantity >= 5 → "Medium"
+- Otherwise → "Low"
+
+
+
+Sales_Priority =
+	IF(
+	   Sales[Sales] >= 30,000 || Sales[Quamtity] >= 10,
+	   "High",
+	IF(
+	    Sales[Sales] >= 15,000 || Sales[Quantity] >= 5,
+	    "Medium",
+	    "Low"
+	)
+)
+
+
+
+⚡ Question 6/10 — IF + && + ||
+Create Customer_Segment:
+- Sales >= 50,000 AND Quantity >= 10 → "Platinum"
+- Sales >= 30,000 AND Quantity >= 5 OR Sales >= 40,000 → "Gold"
+- Sales >= 15,000 OR Quantity >= 3 → "Silver"
+- Otherwise → "Bronze"
+
+
+
+Customer_Segment =
+	IF(
+	   Sales[Sales] >= 50,000 && Sales[Quantity] >= 10,
+	   "Platinum",
+	IF(
+	   (Sales[Sales] >= 30,000 && Sales[Quantity] >= 5) || Sales[Sales] >= 40,000,
+	   "Gold",
+	IF(
+	    Sales[Sales] >= 15,000 || Sales[Quantity] >= 3, "Silver",
+	    "Bronze"
+	)
+)
+
+🔥 Revision Question 7/10 — IF + <>
+Create Category_Type:
+- If Category = "Electronics" → "Tech"
+- If Category = "Furniture" → "Home"
+- If Category is not "Electronics" AND not "Furniture" → "Other"
+Use IF() and <>.
+
+
+
+
+Category_Type =
+	IF(
+	   Sales[Category] = "Electronics",
+	   "Tech",
+	IF(
+	   Sales[Category] = "Furniture",
+	   "Home",
+	IF(
+	   Sales[Category] <> "Electronics" &&
+	   Sales[Category] <>  "Furniture",
+  	   "Other"
+	 	)
+	)
+)
+
+
+🔥 Revision Question 8/10 — IF + ISBLANK
+Create Sales_Status:
+- If Sales[Sales] is blank → "No Sales"
+- Otherwise → "Available"
+Use IF() and ISBLANK().
+
+
+Sales_Status =
+IF(
+   ISBLANK(Sales[Sales]),
+	"No Sales",
+         "Available"
+)
+
+
+
+🔥 Revision Question 9/10
+Create Discount_Status:
+- If Sales[Discount] is blank → "No Discount"
+- Otherwise → "Discount Applied"
+Use IF() + ISBLANK().
+
+
+
+Discount_Status =
+IF(
+   ISBLANK(Sales[Discount]),
+   "No Discount",
+   "Discount Applied"
+)
+
+🔥 Question 10/10 — Final IF Revision
+Create Order_Status:
+- Sales >= 50,000 AND Quantity >= 10 → "Excellent"
+- Sales >= 30,000 AND Quantity >= 5 → "Good"
+- Sales >= 10,000 OR Quantity >= 3 → "Average"
+- Otherwise → "Low"
+Use IF(), &&, and ||.
+
+
+
+Order_Status =
+IF(
+   Sales[Sales] >= 50,000 && Sales[Quantity] >= 10,
+	"Excellent",
+IF(
+   Sales[Sales] >= 30,000 && Sales[Quantity] >= 5,
+	"Good",
+IF(
+   Sales[Sales] >= 10,000 || Sales[Quantity] >== 3,
+	"Average",
+	"Low"
+		)
+	)
+)
+
+
+🚀 Topic 2 — SUM / AVERAGE / COUNT / MIN / MAX
+
+🔥 Question 1/10
+Create a measure:
+Total_Sales
+Requirement:
+Calculate the total value of Sales[Sales].
+
+Total_Sales =
+	SUM(
+	    Sales[Sales]
+)
+
+
+🔥 Question 1/10 — Total_Quantity
+Write:
+Total_Quantity =
+SUM(Sales[Quantity])
+
+Total_Quantity =
+SUM(Sales[Quantity])
+)
+
+⚡ Question 2/10 — AVERAGE
+Create:
+Average_Sales
+Calculate the average value of Sales[Sales].
+
+Use AVERAGE().
+
+
+Average_Sales =
+Calculate(
+	AVG(Sales[Sales])
+)
+
+⚡ Question 3/10 — COUNT
+Create:
+Order_Count
+Requirement:
+Count the number of non-blank values in Sales[Order].
+
+Use COUNT().
+
+
+
+Order_count =
+COUNT(
+	(Sales[Order])
+)
+
+
+
+⚡ Question , 4/10 — COUNTROWS
+Now let's slightly increase the difficulty.
+Create:
+Total_Orders
+Requirement:
+Count the total number of rows in the Sales table.
+
+Use COUNTROWS().
+
+
+Total_Orders =
+COUNTROWS(
+	(Sales)
+)
+
+
+⚡ Question , 5/10 — MIN
+Create:
+Lowest_Sales
+Find the minimum value in Sales[Sales].
+
+Use MIN().
+
+Lowest_Sales =
+MIN(
+    (Sales[Sales])
+)
+
+
+⚡ Question 6/10 — MAX
+Create:
+Highest_Sales
+Find the maximum value in Sales[Sales].
+
+Use MAX().
+
+
+Highest_Sales =
+MAX()
+    (Sales[Sales])
+)
+
+
+
+⚡ Question 7/10 — COUNTROWS vs COUNT
+Create:
+NonBlank_Orders
+Requirement:
+Count the number of non-blank values in Sales[Order].
+
+Use COUNT().
+
+NonBlank_Orders =
+COUNT(
+	(Sales[Order])
+)
+
+
+⚡ Question 8/10 — AVERAGE
+Create:
+Average_Quantity
+Calculate the average value of Sales[Quantity].
+
+Use AVERAGE().
+
+
+Average_Quantity =
+AVERAGE(
+	(Sales[Quantity])
+)
+
+
+⚡ Question 9/10
+Create Minimum_Quantity:
+Find the minimum value of Sales[Quantity].
+
+Use MIN().
+
+
+
+Minimum_Quantity =
+MIN(
+    (Sales[Quantity])
+)
+
+
+
+⚡ Question 10/10 — Final one
+Create Maximum_Quantity:
+Find the maximum value of Sales[Quantity].
+
+Use MAX().
+
+
+Maximum_Quantity =
+MAX(
+    (Sales[Quantity])
+)
+
+
+
+
+🚀 Topic 3 — SUMX / AVERAGEX / COUNTX / MINX / MAXX
+
+⚡ Question 1/10 — SUMX
+Create:
+Total_Revenue
+Calculate total revenue using Price × Quantity for every row.
+
+Use SUMX().
+
+
+Total_Renvenue(
+	SUMX(
+	Sales,
+	Sales[Price] * Sales[Quantity]
+)
+
+
+
+⚡ Question 2/10 — AVERAGEX
+Create:
+Average_Revenue
+Calculate the average revenue per row, where Revenue = Price × Quantity.
+
+Use AVERAGEX().
+
+
+
+Average_Revenue =
+Averagex(
+	Sales,
+	Sales[Price] * Sales[Quanity]
+)
+
+⚡ Question 3/10 — SUMX + FILTER
+Create High_Quantity_Revenue:
+Calculate total revenue (Price × Quantity) only for rows where Quantity >= 5.
+
+Use:
+- SUMX()
+- FILTER()
+
+
+
+High_Quantity_Revenue =
+SUMX(
+	FILTER(
+        Sales,
+	     Sales[Quantity] >= 5
+	),
+	   Sales[Price] * Sales[Quantity]
+)
+
+
+⚡ Question 4/10 — AVERAGEX + FILTER
+Create Average_High_Quantity_Revenue:
+Calculate the average revenue only for rows where Quantity >= 5.
+
+Revenue:
+Price × Quantity
+
+Use:
+- AVERAGEX()
+- FILTER()
+
+
+Average_High_Quantity_Revenue =
+AVERGAEX(
+	FILTER(
+	 Sales,
+	 Sales[Quantity] >= 5,
+	),
+FILTER(
+	Sales[Price] * Sales[Quantity]
+)
+
+⚡ Question 5/10 — SUMX with Profit
+Create Total_Profit.
+Requirement: Calculate total profit across all rows.
+Profit = (Price - Cost) × Quantity
+Use SUMX().
+
+Total_Profit =
+SUMX(
+     Sales,
+	   (Sales[Price] - Sales[Cost]) * Sales[Quantity]
+)
+
+
+⚡ Question 6/10 — AVERAGEX with Profit
+Create Average_Profit.
+Requirement: Calculate the average profit per row.
+Profit = (Price - Cost) × Quantity
+Use AVERAGEX().
+
+Average_Profit =
+AVERAGEX(
+	 Sales,
+		(Sales[Price] - Sales[Cost]) * Sales[Quantity]
+)
+
+⚡ Question 7/10 — COUNTX
+Create Total_Revenue_Entries.
+Requirement: Count the rows where the expression Sales[Price] * Sales[Quantity] produces a non-blank result.
+Use COUNTX().
+
+
+
+Total_Revenue_Entries =
+COUNTX(
+	Sales,
+	      Sales[Price] * Sales[Quantity]
+)
+
+⚡ Question 8/10 — MINX()
+Create Minimum_Revenue.
+Requirement: Find the minimum revenue across all rows.
+Revenue = Price × Quantity
+Use MINX().
+
+
+
+Minimum_Revenue =
+MINX(
+     Sales,
+	   Sales[Price] * Sales[Quantit]
+)
+
+
+
+⚡ Question 9/10 — MAXX()
+Create Maximum_Revenue.
+Requirement: Find the maximum revenue across all rows.
+Revenue = Price × Quantity
+Use MAXX().
+
+Maximum_Revenue =
+MAXX(
+	Sales,
+		Sales[Price] * Sales[Quantity]
+)
+
+
+⚡ Question 10/10 — Final question for this topic
+Create Minimum_Profit.
+Requirement: Find the minimum profit across all rows.
+Profit = (Price - Cost) × Quantity
+Use MINX().
+
+Minimum Profit =
+MINX(
+	Sales,
+	(Sales[Price] - Sales[Cost]) * Sales[Quantity]
+)
+
+
+🚀 Topic 4 — CALCULATE()
+
+Question 1/10
+Create Electronics_Sales.
+Requirement: Calculate total sales where Category = "Electronics".
+Use CALCULATE() and SUM().
+
+Electronics_Sales =
+Calculate(
+	 SUM(
+            Sales[Sales],
+		Sales[Category] = "Electronics"
+	)
+)
+	
+
+
+⚡ Topic 4 — Question 2/10
+Create High_Value_Sales.
+Requirement: Calculate total sales where Sales[Sales] >= 20000.
+Use CALCULATE() and SUM().
+
+
+High_Value_Sales =
+Calculate(
+	SUM(Sales[Sales]),
+	Sales[Sales] >= 20,000
+)
+
+
+⚡ Topic 4 — Question 3/10
+Create Furniture_High_Quantity_Sales.
+Requirements:
+- Category = "Furniture"
+- Quantity >= 5
+- Calculate total Sales[Sales]
+Use CALCULATE(), SUM(), and &&.
+
+
+Furniture_High_Quantity_Sales =
+CALCULATE(
+	SUM(Saless[Sales]),
+	Sales[Category] = "Furniture",
+	Sales[Quantity] >= 5
+)
+
+
+
+⚡ Topic 4 — Question 4/10
+Create High_Profit_Sales.
+Requirement: Calculate total sales for rows where calculated profit is greater than 10,000.
+Profit = (Price - Cost) × Quantity
+Use:
+- CALCULATE()
+- SUM()
+- FILTER()
+
+High_Profit_Sales =
+CALCULATE(
+    SUM(Sales[Sales]),
+    FILTER(
+        Sales,
+        (Sales[Price] - Sales[Cost]) * Sales[Quantity] > 10000
+    )
+)
+
+⚡ Topic 4 — Question 5/10
+Create High_Quantity_Revenue.
+Requirement:
+- Sales[Quantity] >= 5
+- Revenue = Sales[Price] * Sales[Quantity]
+- Calculate the total revenue for qualifying rows.
+Use CALCULATE(), SUMX(), and FILTER().
+
+High_Quantity_Revenue =
+CALCULATE(
+    SUMX(
+        Sales,
+        Sales[Price] * Sales[Quantity]
+    ),
+    FILTER(
+        Sales,
+        Sales[Quantity] >= 5
+    )
+)
+
+
+
+⚡ Question 6/10 — CALCULATE() practice
+Create Furniture_High_Profit.
+Requirements:
+- Category = "Furniture"
+- Quantity >= 3
+- Profit = (Price - Cost) × Quantity
+- Calculate the total profit for qualifying rows.
+Use CALCULATE(), SUMX(), and FILTER().
+
+Furniture_High_Profit =
+Calculate(
+	SUMX(
+	     Sales,
+             (Sales[Price] - Sales[Cost]) * Sales[Quantity]
+	),
+	 FILTER(
+		Sales,
+		sales[Category] = "Furniture" &&
+		Sales[Quantity] >= 3
+	)
+)
+
+
+
+⚡ Topic 4 — Question 7/10
+Create Electronics_Net_Sales.
+Requirements:
+- Category = "Electronics"
+- Quantity >= 5
+- Net Sales = (Price × Quantity) − (Price × Quantity × Discount)
+Use CALCULATE(), SUMX(), and FILTER().
+
+
+
+
+
+
+Electronics_Net_Sales =
+Calculate(
+	SUMX(
+	     (Sales[Price] * Sales[Quantity]) - (Sales[Price] * Sales[Quantity] * Sales[Discount])
+),
+
+	FILTER(
+		Sales,
+		Sales[Category]
+ 
 
 
 
