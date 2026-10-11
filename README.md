@@ -20,6 +20,7 @@ To strengthen my understanding of DAX and practice business scenarios commonly u
 - Microsoft Power BI
 - DAX (Data Analysis Expressions)
 - Measure
+- Some revision Question
 
 ## Progress
 I will continue adding new practice questions and improving my solutions as I learn more about DAX.
