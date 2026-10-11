@@ -2343,10 +2343,6 @@ Requirements:
 Use CALCULATE(), SUMX(), and FILTER().
 
 
-
-
-
-
 Electronics_Net_Sales =
 Calculate(
 	SUMX(
@@ -2358,7 +2354,24 @@ Calculate(
 		Sales[Category]
  
 
+⚡ Topic 4 — Question 7/10
+Create Electronics_Net_Sales.
+Requirements:
+- Category = "Electronics"
+- Quantity >= 5
+- Net Sales = (Price × Quantity) − (Price × Quantity × Discount)
+Use CALCULATE(), SUMX(), and FILTER().
 
+
+Electronics_Net_Sales =
+Calculate(
+	SUMX(
+	     (Sales[Price] * Sales[Quantity]) - (Sales[Price] * Sales[Quantity] * Sales[Discount])
+),
+
+	FILTER(
+		Sales,
+		Sales[Category]
 
 
 
