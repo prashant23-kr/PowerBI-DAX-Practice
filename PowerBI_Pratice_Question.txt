@@ -1693,7 +1693,7 @@ Requirements:
 
 
 
--------------------------------------------------------------------- REVISION POWER BI --------------------------------------------------------------
+--------------- REVISION POWER BI ------------
 
 
 🔥 REVISION — Topic 1: IF / AND / OR
@@ -2351,27 +2351,658 @@ Calculate(
 
 	FILTER(
 		Sales,
-		Sales[Category]
- 
+		Sales[Category] = "Electronics" &&
+		Sales[Quantity] >=
+	)
+)
 
-⚡ Topic 4 — Question 7/10
+
+
+⚡ Question 8/10 — CALCULATE() practice
+Create Premium_Profit.
+Requirements:
+- Sales[Quantity] >= 5
+- Sales[Price] >= 20000
+- Profit = (Price - Cost) × Quantity
+- Calculate total profit for qualifying rows.
+Use CALCULATE(), SUMX(), and FILTER().
+
+
+Premium_Profit =
+CALCULATE(
+	SUMX(
+	  Sales,
+	  (Sales[Price] - Sales[Cost]) * Sales[Quantity]
+),
+	FILTER(
+		Sales,
+	        Sales[Quantity] >= 5 &&
+		Sales[Price] >= 20,000
+	)
+)
+
+
+⚡ Topic 4 — Question 9/10
+Create High_Discount_Revenue.
+Requirements:
+- Sales[Discount] >= 0.10 (10% or more)
+- Sales[Quantity] >= 3
+- Revenue = Price × Quantity
+Use CALCULATE(), SUMX(), and FILTER().
+
+
+High_Discount_Revenue =
+CALCULATE(
+	SUMX(
+	Sales,
+	Sales[Price] * Sales[Quantity]
+)
+	FILTER(
+		Sales,
+		Sales[Discount] >= 0.10 &&
+		Sales[Quantity] >= 3
+	)
+)
+
+
+
+⚡ Topic 4 — Question 10/10
+Final question for CALCULATE() practice, bro! 🔥
+Create Premium_Net_Sales.
+Requirements:
+- Sales[Quantity] >= 5
+- Sales[Price] >= 20000
+- Net Sales = (Price × Quantity) − (Price × Quantity × Discount)
+Use CALCULATE(), SUMX(), and FILTER().
+
+
+
+Premium_Net_Sales =
+CALCULATE(
+SUMX(
+     Sales,
+     (Sales[Price] * Sales[Quantity]) - (Sales[Price] * Sales[Quantity] * Sales[Discount])
+),
+	FILTER(
+	Sales,
+	Sales[Quantity] >= 5 &&
+	Sales[Price] >= 20,000
+	)
+)
+
+
+🔥 Question 1/10 — Filter + SUMX
+Create a measure named High_Quantity_Revenue.
+Requirement:
+- Keep rows where Sales[Quantity] >= 5.
+- Calculate Revenue = Sales[Price] × Sales[Quantity].
+- Return the total revenue for those rows.
+Use FILTER() and SUMX().
+
+
+
+High_Quantity_Revenue =
+CALCULATE(
+	SUMX(
+	Sales,
+	Sales[Price] * Sales[Quantity]
+),
+FILTER(
+Sales,
+      Sales[Quantity] >= 5
+)
+)
+
+
+⚡ Topic 5 — Question 2/10
+Create Furniture_Revenue.
+Requirements:
+- Category = "Furniture"
+- Revenue = Price × Quantity
+- Calculate total revenue for Furniture rows.
+Use FILTER() and SUMX().
+
+
+Furniture_Revenue =
+CALCULATE(
+	SUMX(
+	Sales,
+	Sales[Price] * Sales[Quantity]
+),
+FILTER(
+	Sales,
+	Sales[Category] = "Furniture"
+)
+
+
+
+⚡ Topic 5 — Question 3/10
+Create High_Price_Profit.
+Requirements:
+- Sales[Price] >= 20000
+- Profit = (Price - Cost) × Quantity
+- Calculate total profit for qualifying rows.
+Use FILTER() and SUMX().
+
+
+
+High_Price_Profit =
+CALCULATE(
+SUMX(
+     Sales,
+     (Sales[Price] - Sales[Cost]) * Sales[Quantity]
+)
+FILTER(
+	Sales,
+	Sales[Price] >= 20,000
+	)
+)
+
+
+⚡ Topic 5 — Question 4/10
+Create High_Discount_Revenue.
+Requirements:
+- Sales[Discount] >= 0.10
+- Sales[Quantity] >= 3
+- Revenue = Sales[Price] × Sales[Quantity]
+Use FILTER() and SUMX().
+
+High_Discount_Revenue =
+CALCULATE(
+SUMX(
+	Sales,
+	Sales[Price] * Sales[Quantity]
+),
+FILTER(
+Sales,
+	Sales[Discount] >= 0.10 &&
+	Sales[Quantity] >= 3
+	)
+)
+
+
+
+⚡ Topic 5 — Question 5/10
+Create Furniture_High_Quantity_Profit.
+Requirements:
+- Category = "Furniture"
+- Quantity >= 5
+- Profit = (Price - Cost) × Quantity
+- Calculate total profit for matching rows.
+Use FILTER() and SUMX().
+
+Furniture_High_Quantity_Profit =
+CALCULATE(
+SUMX(
+Sales,
+	(Sales[Price] - Sales[Cost]) * Sales[Quantity]
+),
+FILTER(
+Sales,
+Sales[Category] = "Furniture" &&
+Sales[Quantity] >= 5
+	)
+)
+
+
+
+⚡ Topic 5 — Question 6/10
 Create Electronics_Net_Sales.
 Requirements:
 - Category = "Electronics"
 - Quantity >= 5
 - Net Sales = (Price × Quantity) − (Price × Quantity × Discount)
-Use CALCULATE(), SUMX(), and FILTER().
-
+Use FILTER() and SUMX().
+Hint: SUMX(FILTER(Sales, condition), expression)
 
 Electronics_Net_Sales =
-Calculate(
+CALCULATE(
 	SUMX(
-	     (Sales[Price] * Sales[Quantity]) - (Sales[Price] * Sales[Quantity] * Sales[Discount])
+	Sales,
+	(Sales[Price] * Sales[Quantity]) - (Sales[Price] * Sales[Quantity] * Sales[Discount])
+),
+   FILTER(
+	Sales,
+	Sales[Category] = "Electronics" &&
+	Sales[Quantity] >= 5
+	)
+)
+
+
+
+⚡ Topic 5 — Question 7/10
+Create Premium_Profit.
+Requirements:
+- Sales[Price] >= 20000
+- Sales[Quantity] >= 5
+- Profit = (Price - Cost) × Quantity
+- Calculate total profit for qualifying rows.
+
+
+
+
+Premium_Profit =
+CALCULATE(
+SUMX(
+	Sales,
+	(Sales[Price] - Sales[Cost]) * Sales[Quantity]
 ),
 
-	FILTER(
-		Sales,
-		Sales[Category]
+FILTER(
+	Sales,
+	Sales[Price] >= 20,000 &&
+	Sales[Quantity] >= 5
+	)
+)
+
+
+
+
+⚡ Topic 5 — Question 8/10
+Create High_Sales_Net_Revenue.
+Requirements:
+- Sales[Sales] >= 30000
+- Sales[Quantity] >= 3
+- Net Revenue = (Price × Quantity) − (Price × Quantity × Discount)
+Use FILTER() and SUMX().
+
+
+High_Sales_Net_Revenue =
+	SUMX(
+	     FILTER(
+		   Sales,
+		   Sales[Sales] >= 30000 &&
+		   Sales[Quantity] >= 3
+	),
+Sales[Price] * Sales[Quantity]) - (Sales[Price] * Sales[Quantity] * Sales[Discount])
+)
+
+
+⚡ Topic 5 — Question 9/10
+Create Large_Order_Profit.
+Requirements:
+- Sales[Quantity] >= 10 OR Sales[Price] >= 30000
+- Profit = (Price - Cost) × Quantity
+- Calculate total profit for matching rows.
+Use FILTER() and SUMX().
+
+Large_Order_Profit =
+SUMX(
+     FILTER(
+	     Sales,
+	     Sales[Quantity] >= 10 ||
+	     Sales[Price] >= 30,000
+),
+	Sales[Price] - Sales[Cost] * Sales[Quantity]
+)
+
+⚡ Topic 5 — Question 10/10
+Final question, bro! 💪
+Create Premium_Net_Sales.
+Requirements:
+- Sales[Quantity] >= 5 OR Sales[Price] >= 20000
+- Net Sales = (Price × Quantity) − (Price × Quantity × Discount)
+- Calculate the total net sales for matching rows.
+Use FILTER() and SUMX().
+
+
+Premium_Net_Sales =
+SUMX(
+FILTER(
+	Sales,
+	Sales[Quantity] >= 5 ||
+	Sales[Price] >= 20,000
+),
+(Sales[Price] * Sales[Quantity]) - (Sales[Price] * Sales[Quantity] * Sales[Discount])
+)
+
+
+------------------------------ TOPIC 6 ------------------------------------
+🚀 Topic 6 — ALL(), ALLEXCEPT(), ALLSELECTED()
+We'll do 10 questions here, bro. Let's start!
+Question 1/10 — ALL()
+Create a measure called Sales_All_Regions.
+Requirement: Calculate total sales while ignoring any filter on the Sales[Region] column.
+Use CALCULATE(), SUM(), and REMOVEFILTERS() or ALL().
+
+
+
+
+Sales_All_Regions =
+CALCULATE(
+	SUM(
+	Sales[Sales]
+),
+REMOVEFILTER(
+	Sales[Region]
+)
+
+
+
+⚡ Topic 6 — Question 2/10: ALL()
+Create Sales_All_Categories.
+Requirement: Calculate total sales while ignoring filters on Sales[Category], but keeping filters on other columns.
+Use CALCULATE(), SUM(), and ALL().
+
+Sales_All_Categories =
+CALCULATE(
+	SUM(
+	Sales[Sales]
+)
+ALL(
+    Sales[Category]
+)
+
+
+⚡ Topic 6 — Question 3/10: ALLEXCEPT()
+Create Category_Total_Sales.
+Requirement: Calculate total sales for the current category, ignoring filters on other columns in the Sales table.
+Use CALCULATE(), SUM(), and ALLEXCEPT().
+
+
+Category_Total_Sales =
+CALCULATE(
+    SUM(Sales[Sales]),
+    ALLEXCEPT(
+        Sales,
+        Sales[Category]
+    )
+)
+
+
+⚡ Topic 6 — Question 4/10
+Create Region_Total_Quantity.
+Requirement: Calculate total quantity for the current Region, ignoring filters on other columns in the Sales table.
+Use CALCULATE(), SUM(), and ALLEXCEPT().
+
+Region_Total_Quantity =
+CALCULATE(
+	SUM(Sales[Sales]
+),
+ALLEXPECT(
+	Sales(
+	  Sales[Region]
+)
+
+)
+
+⚡ Topic 6 — Question 4/10
+Create Region_Total_Quantity.
+Requirement: Calculate total quantity for the current Region, ignoring filters on other columns in the Sales table.
+Use CALCULATE(), SUM(), and ALLEXCEPT().
+
+
+Region_Total_Quantity =
+CALCULATE(
+SUM(
+    Sales[Quantity]),
+ALLEXPECT(
+	Sales(Sales[Region])
+)
+
+
+⚡ Topic 6 — Question 5/10: ALLEXCEPT()
+Create Category_Region_Sales.
+Requirement: Calculate total sales while keeping filters on both Sales[Category] and Sales[Region], and removing filters on other columns in the Sales table.
+Use CALCULATE(), SUM(), and ALLEXCEPT().
+
+
+Category_Region_Sales =
+CALCULATE(
+	SUM(
+	Sales[Sales]),
+ALLEXCEPT(
+	Sales,
+	Sales[Category],
+	Sales[Region]
+)
+)
+
+
+⚡ Topic 6 — Question 6/10
+Create Category_Average_Sales.
+Requirement: Calculate the average sales for the current Category, ignoring filters on other columns in the Sales table.
+Use CALCULATE(), AVERAGE(), and ALLEXCEPT().
+
+Category_Average_Sales =
+CALCULATE(
+	AVERAGE(Sales[Sales]),
+ALLEXCEPT(
+	  Sales,
+	  Sales[Category]
+	  )
+)
+
+
+⚡ Topic 6 — Question 7/10: REMOVEFILTERS()
+Create Total_Sales_Without_Region.
+Requirement: Calculate total sales while ignoring the Region filter, but keeping other filters.
+Use CALCULATE(), SUM(), and REMOVEFILTERS().
+
+
+Total_Sales_Without_Region = 
+CALCULATE(
+   SUM(
+	Sales[Sales]),
+REMOVEFILTER(
+	Sales[Region]
+	)
+
+
+
+⚡ Topic 6 — Question 8/10
+Create Total_Sales_Without_Category.
+Requirement: Calculate total sales while ignoring the filter on Sales[Category], but keeping other filters.
+Use CALCULATE(), SUM(), and REMOVEFILTERS()
+
+
+Total_Sales_Without_Category = 
+CALCULATE(
+	SUM(Sales[Sales]),
+REMOVEFILTERS(
+	Sales[Category]
+)
+
+
+
+⚡ Topic 6 — Question 9/10
+Create Total_Sales_Without_Region_Category.
+Requirement: Calculate total sales while ignoring filters on both Sales[Region] and Sales[Category], but keeping filters on other columns.
+Use CALCULATE(), SUM(), and REMOVEFILTERS().
+
+
+
+Total_Sales_Without_Region_Category = 
+CALCULATE(
+	SUM(Sales[Sales]),
+REMOVEFILTERS(
+	Sales[Region],
+	Sales[Category]
+)
+
+
+⚡ Topic 6 — Question 10/10
+Final question for this topic, bro! 🚀
+Create Total_Sales_Without_All_Filters.
+Requirement: Calculate total sales while ignoring all filters on the entire Sales table.
+Use CALCULATE(), SUM(), and REMOVEFILTERS().
+
+
+Total_Sales_Without_All_Filters =
+CALCULATE(
+	SUM(Sales[Sales]),
+REMOVEFILTERS(
+	Sales,
+)
+
+------------------------------------------- NEXT REPO---------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
 
 
 
